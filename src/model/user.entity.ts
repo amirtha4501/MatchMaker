@@ -35,7 +35,7 @@ export class User extends BaseEntity {
 
     // Define the many-to-many relationship with the Coupon entity
     @ManyToMany(() => Coupon, coupon => coupon.users)
-    @JoinTable()
+    // @JoinTable()
     coupons: Coupon[];
 
     // Define the one-to-many relationship with the Feedback entity

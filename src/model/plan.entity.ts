@@ -36,7 +36,7 @@ export class Plan extends BaseEntity {
 
     // Define the many-to-many relationship with the Coupon entity
     @ManyToMany(() => Coupon, coupon => coupon.plans)
-    @JoinTable()
+    // @JoinTable()
     coupons: Coupon[];
 
     // Define the one-to-many relationship with the Payment entity

@@ -26,11 +26,11 @@ export class Coupon extends BaseEntity {
 
     // Define the many-to-many relationship with the User entity
     @ManyToMany(() => User, user => user.coupons)
-    @JoinTable()
+    // @JoinTable()
     users: User[];
 
     // Define the many-to-many relationship with the Plan entity
     @ManyToMany(() => Plan, plan => plan.coupons)
-    @JoinTable()
+    // @JoinTable()
     plans: Plan[];
 }
