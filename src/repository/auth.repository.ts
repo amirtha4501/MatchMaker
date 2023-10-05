@@ -38,13 +38,15 @@ export class AuthRepository extends Repository<User> {
         const user_with_id = await this.findOne({ where: { user_id } });
         const user_with_email = await this.findOne({ where: { email } });
 
-        console.log("");
-
         if (user_with_id || user_with_email) {
             if (user_with_id && user_with_id.password === password) { return user_with_id; }
             if (user_with_email && user_with_email.password === password) { return user_with_email; }
         } else {
             return null;
         }
+    }
+
+    async getUserById(user_id: number): Promise<User> {
+        return await this.findOne({ where: { user_id } });
     }
 }

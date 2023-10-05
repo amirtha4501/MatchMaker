@@ -1,6 +1,6 @@
 import { IsString, MinLength, MaxLength, IsNotEmpty, IsOptional } from 'class-validator';
 
-export class ProfileSignupDto {
+export class ProfileDto {
 
     @IsString()
     @MinLength(4)

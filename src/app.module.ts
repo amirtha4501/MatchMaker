@@ -10,6 +10,8 @@ import { ProfileRepository } from './repository/profile.repository';
 import { AuthRepository } from './repository/auth.repository';
 import { AuthService } from './service/auth.service';
 import { JwtStrategy } from './jwt-strategy';
+import { ProfileController } from './controller/profile.controller';
+import { ProfileService } from './service/profile.service';
 
 
 @Module({
@@ -27,15 +29,18 @@ import { JwtStrategy } from './jwt-strategy';
   ],
   controllers: [
     AppController,
-    AuthController
+    AuthController,
+    ProfileController
   ],
   providers: [
     JwtStrategy,
     AppService,
-    AuthService
+    AuthService,
+    ProfileService
   ],
   exports: [
     AuthService,
+    ProfileService,
     JwtStrategy,
     PassportModule
   ]
@@ -44,6 +49,5 @@ export class AppModule {
   constructor() {
     const logger = new Logger()
     logger.log(process.env.JWT_SECRET, "App module");
-    console.log(process.env.JWT_SECRET, "App module");
   }
 }

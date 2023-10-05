@@ -20,5 +20,3 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
     // entities: ['**/*.entity{.ts,.js}'],
     synchronize: true
 };
-
-// console.log(typeOrmConfig);

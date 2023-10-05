@@ -17,10 +17,8 @@ export class AuthService {
     ) {}
 
     async signup(signupDto: SignupDto): Promise<void> {
-        console.log("signupDto service :", signupDto);
 
         const { user_name, email, password, user_type, paid_status } = signupDto;
-
         const user_email = await this.authRepository.findOne({ where: { email } });
 
         if (user_email) {
