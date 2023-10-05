@@ -30,11 +30,11 @@ export class Profile extends BaseEntity {
     @Column({ nullable: true })
     caste: string;
 
-    @Column({  type: 'date', nullable: true })
-    dob: string;
+    // @Column({  type: 'date', nullable: true })
+    // dob: string;
 
-    @Column({ nullable: true })
-    birth_time: string;
+    @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+    birth_date: Date;
 
     @Column({ nullable: true })
     birth_place: string;
