@@ -17,10 +17,9 @@ export class AuthService {
     ) {}
 
     async signup(signupDto: SignupDto): Promise<void> {
-        console.log("signupDto service", signupDto);
+        console.log("signupDto service :", signupDto);
 
-
-        const { email, password, user_type, paid_status } = signupDto;
+        const { user_name, email, password, user_type, paid_status } = signupDto;
 
         const user_email = await this.authRepository.findOne({ where: { email } });
 
@@ -28,6 +27,7 @@ export class AuthService {
             throw new Error('Email already exists');
         } else {
             const user = new User();
+            user.user_name = user_name;
             user.email = email;
             user.password = password;
             user.user_type = user_type;
@@ -52,7 +52,7 @@ export class AuthService {
             throw new UnauthorizedException('Invalid Credentials');
         }
 
-        const payload: JwtPayload = { user_id: JSON.parse(user).user_id };
+        const payload: JwtPayload = { user_id: user.user_id };
         const accessToken = await this.jwtService.sign(payload);
         return { accessToken };
     }
