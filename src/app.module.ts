@@ -12,6 +12,12 @@ import { AuthService } from './service/auth.service';
 import { JwtStrategy } from './jwt-strategy';
 import { ProfileController } from './controller/profile.controller';
 import { ProfileService } from './service/profile.service';
+import { CouponService } from './service/coupon.service';
+import { CouponController } from './controller/coupon.controller';
+import { CouponRepository } from './repository/coupon.repository';
+// import { FeedbackController } from './controller/feedback.controller';
+// import { FeedbackService } from './service/feedback.service';
+// import { FeedbackRepository } from './repository/feedback.repository';
 
 
 @Module({
@@ -24,23 +30,31 @@ import { ProfileService } from './service/profile.service';
     }),
     TypeOrmModule.forFeature([
       ProfileRepository,
-      AuthRepository
+      AuthRepository,
+      CouponRepository,
+      // FeedbackRepository
     ]),
   ],
   controllers: [
     AppController,
     AuthController,
-    ProfileController
+    ProfileController,
+    CouponController,
+    // FeedbackController
   ],
   providers: [
     JwtStrategy,
     AppService,
     AuthService,
-    ProfileService
+    ProfileService,
+    CouponService,
+    // FeedbackService
   ],
   exports: [
     AuthService,
     ProfileService,
+    CouponService,
+    // FeedbackService,
     JwtStrategy,
     PassportModule
   ]

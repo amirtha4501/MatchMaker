@@ -1,9 +1,10 @@
-import { BaseEntity, Column, Entity, ManyToMany, JoinTable, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToMany, JoinTable, PrimaryGeneratedColumn, Unique } from "typeorm";
 import { User } from "./user.entity";
 import { Plan } from "./plan.entity";
 
 
 @Entity()
+@Unique(['coupon_code'])
 export class Coupon extends BaseEntity {
 
     @PrimaryGeneratedColumn()
