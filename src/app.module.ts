@@ -15,9 +15,9 @@ import { ProfileService } from './service/profile.service';
 import { CouponService } from './service/coupon.service';
 import { CouponController } from './controller/coupon.controller';
 import { CouponRepository } from './repository/coupon.repository';
-// import { FeedbackController } from './controller/feedback.controller';
-// import { FeedbackService } from './service/feedback.service';
-// import { FeedbackRepository } from './repository/feedback.repository';
+import { FeedbackController } from './controller/feedback.controller';
+import { FeedbackService } from './service/feedback.service';
+import { FeedbackRepository } from './repository/feedback.repository';
 
 
 @Module({
@@ -32,7 +32,7 @@ import { CouponRepository } from './repository/coupon.repository';
       ProfileRepository,
       AuthRepository,
       CouponRepository,
-      // FeedbackRepository
+      FeedbackRepository
     ]),
   ],
   controllers: [
@@ -40,7 +40,7 @@ import { CouponRepository } from './repository/coupon.repository';
     AuthController,
     ProfileController,
     CouponController,
-    // FeedbackController
+    FeedbackController
   ],
   providers: [
     JwtStrategy,
@@ -48,17 +48,19 @@ import { CouponRepository } from './repository/coupon.repository';
     AuthService,
     ProfileService,
     CouponService,
-    // FeedbackService
+    FeedbackService
   ],
   exports: [
     AuthService,
     ProfileService,
     CouponService,
-    // FeedbackService,
+    FeedbackService,
     JwtStrategy,
     PassportModule
   ]
 })
+
+
 export class AppModule {
   constructor() {
     const logger = new Logger()
