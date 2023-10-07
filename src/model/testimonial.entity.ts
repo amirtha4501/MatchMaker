@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./user.entity";
 
 
@@ -21,6 +21,7 @@ export class Testimonial extends BaseEntity {
     relationship_length: number;
 
     @Column()
+    @CreateDateColumn()
     submit_date: Date;
 
     // Define the many-to-one relationship with the User entity

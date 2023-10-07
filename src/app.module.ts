@@ -27,6 +27,9 @@ import { PaymentService } from './service/payment.service';
 import { PlanRepository } from './repository/plan.repository';
 import { PlanController } from './controller/plan.controller';
 import { PlanService } from './service/plan.service';
+import { TestimonialRepository } from './repository/testimonial.repository';
+import { TestimonialController } from './controller/testimonial.controller';
+import { TestimonialService } from './service/testimonial.service';
 
 
 @Module({
@@ -44,7 +47,8 @@ import { PlanService } from './service/plan.service';
       FeedbackRepository,
       MessageRepository,
       PaymentRepository,
-      PlanRepository
+      PlanRepository,
+      TestimonialRepository
     ]),
   ],
   controllers: [
@@ -55,7 +59,8 @@ import { PlanService } from './service/plan.service';
     FeedbackController,
     MessageController,
     PaymentController,
-    PlanController
+    PlanController,
+    TestimonialController
   ],
   providers: [
     JwtStrategy,
@@ -66,7 +71,8 @@ import { PlanService } from './service/plan.service';
     FeedbackService,
     MessageService,
     PaymentService,
-    PlanService
+    PlanService,
+    TestimonialService
   ],
   exports: [
     AuthService,
@@ -76,6 +82,7 @@ import { PlanService } from './service/plan.service';
     MessageService,
     PaymentService,
     PlanService,
+    TestimonialService,
     JwtStrategy,
     PassportModule
   ]
