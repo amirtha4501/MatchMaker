@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./user.entity";
 
 
@@ -15,12 +15,16 @@ export class Message extends BaseEntity {
     read_status: string;
 
     @Column()
+    @CreateDateColumn()
     timestamp: Date;
 
-    @Column()
+    @Column({ nullable: true })
     attachment: string;
 
     // Define the many-to-one relationship with the User entity
-    @ManyToOne(() => User, user => user.messages)
-    user: User;
+    @ManyToOne(() => User, user => user.sender_messages)
+    sender: User;
+
+    @ManyToOne(() => User, user => user.receiver_messages)
+    receiver: User;
 }

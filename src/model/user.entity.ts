@@ -54,9 +54,13 @@ export class User extends BaseEntity {
     @OneToMany(() => Testimonial, testimonial => testimonial.user)
     testimonials: Testimonial[];
 
-    // Define the one-to-many relationship with the Message entity
-    @OneToMany(() => Message, message => message.user)
-    messages: Message[];
+    // Define the one-to-many relationship with the Message entity for sender
+    @OneToMany(() => Message, message => message.sender)
+    sender_messages: Message[];
+
+    // Define the one-to-many relationship with the Message entity for receiver
+    @OneToMany(() => Message, message => message.receiver)
+    receiver_messages: Message[];
 
     // Define the one-to-many relationship with the Profile entity
     @OneToMany(() => Profile, profile => profile.user)

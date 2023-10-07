@@ -18,6 +18,9 @@ import { CouponRepository } from './repository/coupon.repository';
 import { FeedbackController } from './controller/feedback.controller';
 import { FeedbackService } from './service/feedback.service';
 import { FeedbackRepository } from './repository/feedback.repository';
+import { MessageController } from './controller/message.controller';
+import { MessageService } from './service/message.service';
+import { MessageRepository } from './repository/message.repository';
 
 
 @Module({
@@ -32,7 +35,8 @@ import { FeedbackRepository } from './repository/feedback.repository';
       ProfileRepository,
       AuthRepository,
       CouponRepository,
-      FeedbackRepository
+      FeedbackRepository,
+      MessageRepository
     ]),
   ],
   controllers: [
@@ -40,7 +44,8 @@ import { FeedbackRepository } from './repository/feedback.repository';
     AuthController,
     ProfileController,
     CouponController,
-    FeedbackController
+    FeedbackController,
+    MessageController
   ],
   providers: [
     JwtStrategy,
@@ -48,13 +53,15 @@ import { FeedbackRepository } from './repository/feedback.repository';
     AuthService,
     ProfileService,
     CouponService,
-    FeedbackService
+    FeedbackService,
+    MessageService
   ],
   exports: [
     AuthService,
     ProfileService,
     CouponService,
     FeedbackService,
+    MessageService,
     JwtStrategy,
     PassportModule
   ]
