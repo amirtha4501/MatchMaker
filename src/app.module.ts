@@ -21,6 +21,9 @@ import { FeedbackRepository } from './repository/feedback.repository';
 import { MessageController } from './controller/message.controller';
 import { MessageService } from './service/message.service';
 import { MessageRepository } from './repository/message.repository';
+import { PaymentRepository } from './repository/payment.repository';
+import { PaymentController } from './controller/payment.controller';
+import { PaymentService } from './service/payment.service';
 
 
 @Module({
@@ -36,7 +39,8 @@ import { MessageRepository } from './repository/message.repository';
       AuthRepository,
       CouponRepository,
       FeedbackRepository,
-      MessageRepository
+      MessageRepository,
+      PaymentRepository
     ]),
   ],
   controllers: [
@@ -45,7 +49,8 @@ import { MessageRepository } from './repository/message.repository';
     ProfileController,
     CouponController,
     FeedbackController,
-    MessageController
+    MessageController,
+    PaymentController
   ],
   providers: [
     JwtStrategy,
@@ -54,7 +59,8 @@ import { MessageRepository } from './repository/message.repository';
     ProfileService,
     CouponService,
     FeedbackService,
-    MessageService
+    MessageService,
+    PaymentService
   ],
   exports: [
     AuthService,
@@ -62,6 +68,7 @@ import { MessageRepository } from './repository/message.repository';
     CouponService,
     FeedbackService,
     MessageService,
+    PaymentService,
     JwtStrategy,
     PassportModule
   ]

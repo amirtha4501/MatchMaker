@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./user.entity";
 import { Plan } from "./plan.entity";
 
@@ -25,6 +25,7 @@ export class Payment extends BaseEntity {
     status: string;
 
     @Column()
+    @CreateDateColumn()
     payment_date: Date;
 
     @Column()
