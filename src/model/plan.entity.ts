@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, ManyToMany, JoinTable, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
 import { Coupon } from "./coupon.entity";
 import { Payment } from "./payment.entity";
 import { User } from "./user.entity";
@@ -19,19 +19,21 @@ export class Plan extends BaseEntity {
     @Column()
     price: number;
 
-    @Column()
+    @Column({ nullable: true })
     description: string;
 
     @Column()
     billing_cycle: string;
 
     @Column()
-    active: string;
+    active: boolean;
 
     @Column()
+    @CreateDateColumn()
     created_date: Date;
 
     @Column()
+    @UpdateDateColumn()
     updated_date: Date;
 
     // Define the many-to-many relationship with the Coupon entity
