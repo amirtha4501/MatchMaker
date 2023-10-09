@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AuthRepository } from '../repository/auth.repository';
 import { PaymentRepository } from '../repository/payment.repository';
 import { PaymentDto } from '../dto/payment.dto';
+import { Payment } from '../model/payment.entity';
 
 @Injectable()
 export class PaymentService {
@@ -18,6 +19,13 @@ export class PaymentService {
         let plan;
         // const plan = await this.authRepository.findOne(paymentDto.plan_id);
         return this.paymentRepository.createPayment(paymentDto, user, plan);
+    }
+
+    async getPayments(): Promise<Payment[]> {
+        // const user = await this.authRepository.findOne(paymentDto.user_id);
+        // let plan;
+        // const plan = await this.authRepository.findOne(paymentDto.plan_id);
+        return this.paymentRepository.getPayments();
     }
 
 }

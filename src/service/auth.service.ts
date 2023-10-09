@@ -54,4 +54,8 @@ export class AuthService {
         const accessToken = await this.jwtService.sign(payload);
         return { accessToken };
     }
+
+    async getUsers(): Promise<User[]> {
+        return await this.authRepository.getUsers();
+    }
 }

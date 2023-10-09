@@ -21,7 +21,7 @@ export class ProfileService {
         const user = await this.authRepository.getUserById(profileDto.user_id);
 
         if (user)
-            return this.profileRepository.createProfile(profileDto);
+            return this.profileRepository.createProfile(profileDto, user);
         else
             throw new NotFoundException(`User with ID '${profileDto.user_id}' not found`);
     }

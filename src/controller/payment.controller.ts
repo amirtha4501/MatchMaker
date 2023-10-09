@@ -1,6 +1,7 @@
-import { Controller, Post, Body, ValidationPipe } from '@nestjs/common';
+import { Controller, Post, Body, ValidationPipe, Get } from '@nestjs/common';
 import { PaymentDto } from '../dto/payment.dto';
 import { PaymentService } from '../service/payment.service';
+import { Payment } from '../model/payment.entity';
 
 
 @Controller('payment')
@@ -15,6 +16,13 @@ export class PaymentController {
         @Body(ValidationPipe) paymentDto: PaymentDto
     ): Promise<void> {
         return this.paymentService.createPayment(paymentDto);
+    }
+
+    @Get()
+    getPayments(
+        // @Body(ValidationPipe) paymentDto: PaymentDto
+    ): Promise<Payment[]> {
+        return this.paymentService.getPayments();
     }
 
 }

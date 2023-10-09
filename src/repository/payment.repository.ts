@@ -31,6 +31,13 @@ export class PaymentRepository extends Repository<Payment> {
         }
     }
 
+    async getPayments(): Promise<Payment[]> {
+        return await this.createQueryBuilder('payment')
+            .leftJoinAndSelect('payment.user', 'user') // Join and select the 'user' relation
+            .leftJoinAndSelect('payment.plan', 'plan') // Join and select the 'plan' relation
+            .getMany();
+    }
+
     // async getFeedbacks(filterDto: GetFeedbacksFilterDto, user: User): Promise<Feedback[]> {
     //     const { subject, from_rating, to_rating, status } = filterDto;
 

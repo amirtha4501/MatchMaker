@@ -46,6 +46,10 @@ export class AuthRepository extends Repository<User> {
         }
     }
 
+    async getUsers(): Promise<User[]> {
+        return await this.find();
+    }
+
     async getUserById(user_id: number): Promise<User> {
         return await this.findOne({ where: { user_id } });
     }

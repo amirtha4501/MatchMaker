@@ -3,12 +3,13 @@ import { ProfileDto } from "../dto/profile.dto";
 import { Profile } from "../model/profile.entity";
 import { ConflictException, InternalServerErrorException } from "@nestjs/common";
 import { GetProfilesFilterDto } from "../dto/get-profiles-filter.dto";
+import { User } from "../model/user.entity";
 
 
 @EntityRepository(Profile)
 export class ProfileRepository extends Repository<Profile> {
 
-    async createProfile(profileDto: ProfileDto): Promise<void> {
+    async createProfile(profileDto: ProfileDto, user: User): Promise<void> {
         const profile = new Profile();
         const { img_data_1, img_data_2, img_data_3, name, gender, birth_date, birth_place, religion, caste, star, rasi, qualification, job, income, height, mother_tongue, known_language, marital_status, father_name, mother_name, contact, sibiling_count, family_status, expected_qualification, expected_place, expected_income, expected_caste, expected_subcaste, expected_marital_status, expected_age_difference, expected_height, expected_weight } = profileDto;
 
@@ -44,6 +45,7 @@ export class ProfileRepository extends Repository<Profile> {
         profile.expected_age_difference = expected_age_difference,
         profile.expected_height = expected_height,
         profile.expected_weight = expected_weight
+        profile.user = user
 
         try {
             await profile.save();
@@ -54,13 +56,17 @@ export class ProfileRepository extends Repository<Profile> {
     }
 
     async getProfiles(filterDto: GetProfilesFilterDto): Promise<Profile[]> {
-        const { id, name, gender, caste, from_height, to_height } = filterDto;
+        const { id, name, gender, caste, from_height, to_height, user_id } = filterDto;
 
         const query = this.createQueryBuilder('profile');
 
 
         if (id) {
             query.andWhere('profile.id = :id', { id });
+        }
+
+        if (user_id) {
+            query.andWhere('profile.userUserId = :user_id', { user_id });
         }
 
         if (name) {

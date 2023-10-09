@@ -10,7 +10,11 @@ export class GetProfilesFilterDto {
     @IsOptional()
     @IsNotEmpty()
     name: string;
-    
+
+    @IsOptional()
+    @IsNotEmpty()
+    user_id: number;
+
     @IsOptional()
     @IsNotEmpty()
     caste: string;
