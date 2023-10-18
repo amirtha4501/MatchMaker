@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS public.plan
+(
+    plan_id integer NOT NULL DEFAULT nextval('plan_plan_id_seq'::regclass),
+    plan_name character varying COLLATE pg_catalog."default" NOT NULL,
+    currency character varying COLLATE pg_catalog."default" NOT NULL,
+    price integer NOT NULL,
+    description character varying COLLATE pg_catalog."default",
+    billing_cycle character varying COLLATE pg_catalog."default" NOT NULL,
+    created_date timestamp without time zone NOT NULL DEFAULT now(),
+    updated_date timestamp without time zone NOT NULL DEFAULT now(),
+    active boolean NOT NULL,
+    CONSTRAINT "PK_cf8cdd9ac9fbd4f9dd000bb62ca" PRIMARY KEY (plan_id)
+)
+
+SELECT * FROM public.plan
+ORDER BY plan_id ASC 

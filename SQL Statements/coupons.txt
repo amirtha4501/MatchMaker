@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS public.coupon
+(
+    coupon_id integer NOT NULL DEFAULT nextval('coupon_coupon_id_seq'::regclass),
+    coupon_code character varying COLLATE pg_catalog."default" NOT NULL,
+    discount_amount integer NOT NULL,
+    usage_limit integer NOT NULL,
+    active boolean NOT NULL DEFAULT false,
+    expiry_date timestamp without time zone NOT NULL,
+    CONSTRAINT "PK_188be7cee87815a2db1a014d003" PRIMARY KEY (coupon_id),
+    CONSTRAINT "UQ_8927dc8fa6af6c5182c36cb07ce" UNIQUE (coupon_code)
+)
+
+SELECT * FROM public.coupon
+ORDER BY coupon_id ASC 

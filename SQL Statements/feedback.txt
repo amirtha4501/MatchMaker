@@ -1,0 +1,19 @@
+CREATE TABLE IF NOT EXISTS public.feedback
+(
+    feedback_id integer NOT NULL DEFAULT nextval('feedback_feedback_id_seq'::regclass),
+    subject character varying COLLATE pg_catalog."default" NOT NULL,
+    comments character varying COLLATE pg_catalog."default" NOT NULL,
+    rating integer NOT NULL,
+    status character varying COLLATE pg_catalog."default" NOT NULL,
+    feedback_type character varying COLLATE pg_catalog."default" NOT NULL,
+    feedback_date timestamp without time zone NOT NULL,
+    "userUserId" integer,
+    CONSTRAINT "PK_05e0741767903afe9fca96d1e9d" PRIMARY KEY (feedback_id),
+    CONSTRAINT "FK_f5dc2db3587c3240c921a0df566" FOREIGN KEY ("userUserId")
+        REFERENCES public."user" (user_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+SELECT * FROM public.feedback
+ORDER BY feedback_id ASC 

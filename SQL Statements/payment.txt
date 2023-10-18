@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS public.payment
+(
+    payment_id integer NOT NULL DEFAULT nextval('payment_payment_id_seq'::regclass),
+    amount integer NOT NULL,
+    currency character varying COLLATE pg_catalog."default" NOT NULL,
+    payment_gateway character varying COLLATE pg_catalog."default" NOT NULL,
+    payment_method character varying COLLATE pg_catalog."default" NOT NULL,
+    status character varying COLLATE pg_catalog."default" NOT NULL,
+    payment_date timestamp without time zone NOT NULL DEFAULT now(),
+    transaction_id character varying COLLATE pg_catalog."default" NOT NULL,
+    "userUserId" integer,
+    "planPlanId" integer,
+    CONSTRAINT "PK_9fff60ac6ac1844ea4e0cfba67a" PRIMARY KEY (payment_id),
+    CONSTRAINT "FK_3860e50cab67d6789f9ea4fd258" FOREIGN KEY ("userUserId")
+        REFERENCES public."user" (user_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT "FK_e0e4323a449fecc9f141cb02e5c" FOREIGN KEY ("planPlanId")
+        REFERENCES public.plan (plan_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+SELECT * FROM public.payment
+ORDER BY payment_id ASC

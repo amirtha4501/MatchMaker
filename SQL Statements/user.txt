@@ -1,0 +1,33 @@
+Database
+
+CREATE DATABASE matrimony
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'en_US.utf8'
+    LC_CTYPE = 'en_US.utf8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+
+
+
+CREATE TABLE IF NOT EXISTS public."user"
+(
+    user_id integer NOT NULL DEFAULT nextval('user_user_id_seq'::regclass),
+    user_name character varying COLLATE pg_catalog."default" NOT NULL,
+    email character varying COLLATE pg_catalog."default" NOT NULL,
+    password character varying COLLATE pg_catalog."default" NOT NULL,
+    paid_status character varying COLLATE pg_catalog."default" NOT NULL,
+    user_type character varying COLLATE pg_catalog."default" NOT NULL,
+    "planPlanId" integer,
+    CONSTRAINT "PK_758b8ce7c18b9d347461b30228d" PRIMARY KEY (user_id),
+    CONSTRAINT "UQ_e12875dfb3b1d92d7d7c5377e22" UNIQUE (email),
+    CONSTRAINT "FK_56b1f5bc829e18743cf271f55e1" FOREIGN KEY ("planPlanId")
+        REFERENCES public.plan (plan_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+SELECT * FROM public."user"
+ORDER BY user_id ASC 

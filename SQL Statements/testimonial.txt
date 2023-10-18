@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS public.testimonial
+(
+    testimonial_id integer NOT NULL DEFAULT nextval('testimonial_testimonial_id_seq'::regclass),
+    testimonial_text character varying COLLATE pg_catalog."default" NOT NULL,
+    approved boolean DEFAULT false,
+    rating integer NOT NULL,
+    relationship_length integer NOT NULL,
+    submit_date timestamp without time zone NOT NULL DEFAULT now(),
+    "userUserId" integer,
+    CONSTRAINT "PK_6c6e32dcc53119d5a48ed2b0f43" PRIMARY KEY (testimonial_id),
+    CONSTRAINT "FK_96766654dd31684e73a7fa7f7a1" FOREIGN KEY ("userUserId")
+        REFERENCES public."user" (user_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+SELECT * FROM public.testimonial
+ORDER BY testimonial_id ASC 

@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS public.message
+(
+    message_id integer NOT NULL DEFAULT nextval('message_message_id_seq'::regclass),
+    message_text character varying COLLATE pg_catalog."default" NOT NULL,
+    read_status character varying COLLATE pg_catalog."default" NOT NULL,
+    "timestamp" timestamp without time zone NOT NULL DEFAULT now(),
+    attachment character varying COLLATE pg_catalog."default",
+    "senderUserId" integer,
+    "receiverUserId" integer,
+    CONSTRAINT "PK_06a563cdbd963a9f7cbcb25c447" PRIMARY KEY (message_id),
+    CONSTRAINT "FK_84538395c2c056d8d2ee1fb0b4f" FOREIGN KEY ("receiverUserId")
+        REFERENCES public."user" (user_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT "FK_bd31eecc47806fe4d4f27991b76" FOREIGN KEY ("senderUserId")
+        REFERENCES public."user" (user_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+SELECT * FROM public.message
+ORDER BY message_id ASC 

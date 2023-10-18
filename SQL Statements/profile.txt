@@ -1,0 +1,48 @@
+CREATE TABLE IF NOT EXISTS public.profile
+(
+    profile_id integer NOT NULL DEFAULT nextval('profile_profile_id_seq'::regclass),
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    gender character varying COLLATE pg_catalog."default" NOT NULL,
+    qualification character varying COLLATE pg_catalog."default",
+    job character varying COLLATE pg_catalog."default",
+    religion character varying COLLATE pg_catalog."default",
+    caste character varying COLLATE pg_catalog."default",
+    birth_place character varying COLLATE pg_catalog."default",
+    marital_status character varying COLLATE pg_catalog."default",
+    height numeric,
+    star character varying COLLATE pg_catalog."default",
+    rasi character varying COLLATE pg_catalog."default",
+    income character varying COLLATE pg_catalog."default",
+    contact character varying COLLATE pg_catalog."default" NOT NULL,
+    father_name character varying COLLATE pg_catalog."default",
+    mother_name character varying COLLATE pg_catalog."default",
+    sibiling_count character varying COLLATE pg_catalog."default",
+    family_status character varying COLLATE pg_catalog."default",
+    mother_tongue character varying COLLATE pg_catalog."default",
+    known_language character varying COLLATE pg_catalog."default",
+    expected_qualification character varying COLLATE pg_catalog."default",
+    expected_place character varying COLLATE pg_catalog."default",
+    expected_income character varying COLLATE pg_catalog."default",
+    expected_caste character varying COLLATE pg_catalog."default",
+    expected_subcaste character varying COLLATE pg_catalog."default",
+    expected_marital_status character varying COLLATE pg_catalog."default",
+    expected_age_difference character varying COLLATE pg_catalog."default",
+    expected_height character varying COLLATE pg_catalog."default",
+    expected_weight character varying COLLATE pg_catalog."default",
+    img_data_1 text COLLATE pg_catalog."default",
+    img_data_2 text COLLATE pg_catalog."default",
+    img_data_3 text COLLATE pg_catalog."default",
+    viewed_contacts integer NOT NULL DEFAULT 0,
+    date_of_registration date NOT NULL DEFAULT now(),
+    age integer,
+    "userUserId" integer,
+    birth_date timestamp without time zone NOT NULL DEFAULT now(),
+    CONSTRAINT "PK_b0465dda30314a8786db3354a65" PRIMARY KEY (profile_id),
+    CONSTRAINT "FK_c645941c0a12a9e9934026e0189" FOREIGN KEY ("userUserId")
+        REFERENCES public."user" (user_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+SELECT * FROM public.profile
+ORDER BY profile_id ASC 
