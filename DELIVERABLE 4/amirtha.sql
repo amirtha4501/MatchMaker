@@ -225,8 +225,258 @@ ORDER BY testimonial_id ASC
 
 -- 1. Signup API Queries
 
-SELECT * FROM users WHERE email = 'provided_email'; -- Checking if an email already exists
+-- Checking if an email already exists
+SELECT * FROM users WHERE email = 'provided_email';
 
+-- Inserting a new user
 INSERT INTO users (user_name, email, password, user_type, paid_status)
 VALUES ('provided_user_name', 'provided_email', 'provided_password', 'provided_user_type', 'provided_paid_status');
--- Inserting a new user
+
+
+-- 2. Signin API Queries
+
+-- Find a user by user_id
+SELECT * FROM users WHERE user_id = 'provided_user_id';
+
+-- Find a user by email
+SELECT * FROM users WHERE email = 'provided_email';
+
+
+-- 3. Get user(s) API Queries
+
+-- Retrieve all users from the database
+SELECT * FROM users;
+
+-- Retrieve a user by their user_id
+SELECT * FROM users WHERE user_id = 'provided_user_id';
+
+
+-- 4. Coupon API Queries
+
+-- Create coupon
+INSERT INTO coupons (coupon_code, discount_amount, expiry_date, active, usage_limit)
+VALUES ('coupon_code_value', discount_amount_value, 'expiry_date_value', active_value, usage_limit_value);
+
+-- Get coupons with filters
+SELECT * FROM coupon
+WHERE (coupon.coupon_code LIKE :coupon_code)
+AND (coupon.expiry_date = :expiry_date)
+AND (coupon.discount_amount >= :from_amount AND coupon.discount_amount <= :to_amount);
+
+-- Retrieve a coupon by its ID
+SELECT * FROM coupon
+WHERE coupon.id = :id
+
+-- Delete a coupon by its ID
+DELETE FROM coupon
+WHERE coupon.id = :id
+
+-- Update a coupon by its ID
+UPDATE coupon
+SET
+  coupon.coupon_code = :coupon_code,
+  coupon.active = :active,
+  coupon.expiry_date = :expiry_date,
+  coupon.usage_limit = :usage_limit,
+  coupon.discount_amount = :discount_amount
+WHERE coupon.id = :id
+
+
+-- 5. Feedback API Queries
+
+-- Insert a new feedback into the database with user association
+INSERT INTO feedback (subject, comments, rating, status, feedback_type, feedback_date, user_id)
+VALUES (:subject, :comments, :rating, :status, :feedback_type, :feedback_date, :user_id)
+
+-- Get feedbacks
+SELECT * FROM feedback
+WHERE
+  (feedback.subject LIKE :subject)
+  AND (feedback.status = :status)
+  AND (feedback.rating >= :from_rating AND feedback.rating <= :to_rating)
+  AND (feedback.user = :user)
+
+-- Retrieve a feedback by its ID
+SELECT * FROM feedback
+WHERE feedback.id = :id
+
+-- Delete a feedback by its ID
+DELETE FROM feedback
+WHERE feedback.id = :id
+
+-- Update a feedback by its ID
+UPDATE feedback
+SET
+  feedback.subject = :subject,
+  feedback.comments = :comments,
+  feedback.rating = :rating,
+  feedback.status = :status,
+  feedback.feedback_type = :feedback_type
+WHERE feedback.id = :id
+
+
+-- 6. Message API Queries
+
+-- Query to retrieve the sender user entity by sender_id
+SELECT * FROM users WHERE user_id = :sender_id;
+
+-- Query to retrieve the receiver user entity by receiver_id
+SELECT * FROM users WHERE user_id = :receiver_id;
+
+-- Insert a new message into the database
+INSERT INTO message (message_text, read_status, attachment, sender_id, receiver_id)
+VALUES (:message_text, :read_status, :attachment, :sender_id, :receiver_id)
+
+-- Get messages
+SELECT * FROM message
+WHERE
+  (message.sender = :sender AND message.receiver = :receiver)
+
+
+-- 7. Payment API Queries
+
+-- Retrieve a user by user_id
+SELECT * FROM users WHERE user_id = :user_id;
+
+-- Insert a new payment into the database with user and plan associations
+INSERT INTO payment (amount, currency, payment_gateway, payment_method, transaction_id, status, user_id, plan_id)
+VALUES (:amount, :currency, :payment_gateway, :payment_method, :transaction_id, :status, :user_id, :plan_id);
+
+-- Get payment with left joins to 'user' and 'plan'
+SELECT * FROM payment
+LEFT JOIN users AS user ON payment.user_id = user.user_id
+LEFT JOIN plan AS plan ON payment.plan_id = plan.plan_id
+
+
+-- 8. Plan API Queries
+
+-- Insert a new plan into the database
+INSERT INTO plan (plan_name, currency, price, description, billing_cycle, active)
+VALUES (:plan_name, :currency, :price, :description, :billing_cycle, :active);
+
+-- Get plans
+SELECT * FROM plan
+
+-- Retrieve a plan by its ID
+SELECT * FROM plan
+WHERE plan.id = :id
+
+-- Delete a plan by its ID
+DELETE FROM plan
+WHERE plan.id = :id
+
+-- Update a plan by its ID
+UPDATE plan
+SET
+  plan.plan_name = :plan_name,
+  plan.currency = :currency,
+  plan.price = :price,
+  plan.description = :description,
+  plan.billing_cycle = :billing_cycle,
+  plan.active = :active
+WHERE plan.id = :id
+
+
+-- 9. Profile API Queries
+
+-- Insert a new user profile into the 'profile' table
+INSERT INTO profile (
+    img_data_1, img_data_2, img_data_3, name, gender, birth_date, birth_place, religion,
+    caste, star, rasi, qualification, job, income, height, mother_tongue, known_language,
+    marital_status, father_name, mother_name, contact, sibiling_count, family_status,
+    expected_qualification, expected_place, expected_income, expected_caste, expected_subcaste,
+    expected_marital_status, expected_age_difference, expected_height, expected_weight, user_id
+)
+VALUES (
+    :img_data_1, :img_data_2, :img_data_3, :name, :gender, :birth_date, :birth_place, :religion,
+    :caste, :star, :rasi, :qualification, :job, :income, :height, :mother_tongue, :known_language,
+    :marital_status, :father_name, :mother_name, :contact, :sibiling_count, :family_status,
+    :expected_qualification, :expected_place, :expected_income, :expected_caste, :expected_subcaste,
+    :expected_marital_status, :expected_age_difference, :expected_height, :expected_weight, :user_id
+);
+
+-- Get profiles
+SELECT * FROM profile
+WHERE
+  (profile.id = :id)
+  AND (profile.userUserId = :user_id)
+  AND (profile.name LIKE :name)
+  AND (profile.caste = :caste)
+  AND (profile.gender = :gender)
+  AND (profile.height >= :from_height AND profile.height <= :to_height)
+
+-- Retrieve a profile by its ID
+SELECT * FROM profile
+WHERE profile.id = :id
+
+-- Delete a user profile by its ID
+DELETE FROM profile
+WHERE profile.id = :id
+
+-- Update a user profile by its ID
+UPDATE profile
+SET
+  profile.img_data_1 = :img_data_1,
+  profile.img_data_2 = :img_data_2,
+  profile.img_data_3 = :img_data_3,
+  profile.name = :name,
+  profile.gender = :gender,
+  profile.birth_date = :birth_date,
+  profile.birth_place = :birth_place,
+  profile.religion = :religion,
+  profile.caste = :caste,
+  profile.star = :star,
+  profile.rasi = :rasi,
+  profile.qualification = :qualification,
+  profile.job = :job,
+  profile.income = :income,
+  profile.height = :height,
+  profile.mother_tongue = :mother_tongue,
+  profile.known_language = :known_language,
+  profile.marital_status = :marital_status,
+  profile.father_name = :father_name,
+  profile.mother_name = :mother_name,
+  profile.contact = :contact,
+  profile.sibling_count = :sibling_count,
+  profile.family_status = :family_status,
+  profile.expected_qualification = :expected_qualification,
+  profile.expected_place = :expected_place,
+  profile.expected_income = :expected_income,
+  profile.expected_caste = :expected_caste,
+  profile.expected_subcaste = :expected_subcaste,
+  profile.expected_marital_status = :expected_marital_status,
+  profile.expected_age_difference = :expected_age_difference,
+  profile.expected_height = :expected_height,
+  profile.expected_weight = :expected_weight
+WHERE profile.id = :id
+
+
+-- 10. Testimonial API Queries
+
+-- Insert a new testimonial
+INSERT INTO testimonial (
+    testimonial_text, approved, rating, relationship_length, user_id
+)
+VALUES (
+    :testimonial_text, :approved, :rating, :relationship_length, :user_id
+);
+
+-- Retrieve all testimonials
+SELECT * FROM testimonial
+
+-- Retrieve a testimonial by its ID
+SELECT * FROM testimonial
+WHERE testimonial.id = :id
+
+-- Delete a testimonial by its ID
+DELETE FROM testimonial
+WHERE testimonial.id = :id
+
+-- Update a testimonial by its ID
+UPDATE testimonial
+SET
+  testimonial.testimonial_text = :testimonial_text,
+  testimonial.approved = :approved,
+  testimonial.rating = :rating,
+  testimonial.relationship_length = :relationship_length
+WHERE testimonial.id = :id
