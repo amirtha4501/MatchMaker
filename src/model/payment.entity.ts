@@ -15,10 +15,10 @@ export class Payment extends BaseEntity {
     @Column()
     currency: string;
 
-    @Column()
+    @Column({ nullable: true })
     payment_gateway: string;
 
-    @Column()
+    @Column({ nullable: true })
     payment_method: string;
 
     @Column()

@@ -8,10 +8,10 @@ export class PaymentDto {
     @IsNotEmpty()
     currency: string;
 
-    @IsNotEmpty()
+    // @IsNotEmpty()
     payment_gateway: string;
 
-    @IsNotEmpty()
+    // @IsNotEmpty()
     payment_method: string;
 
     @IsNotEmpty()
