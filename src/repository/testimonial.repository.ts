@@ -36,6 +36,9 @@ export class TestimonialRepository extends Repository<Testimonial> {
 
         const query = this.createQueryBuilder('testimonial');
 
+        // Add ORDER BY clause to sort by testimonial_id in ascending order
+        query.orderBy('testimonial.testimonial_id', 'ASC');
+
         const testimonials = await query.getMany();
         return testimonials;
     }

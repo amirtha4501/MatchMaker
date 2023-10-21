@@ -44,6 +44,9 @@ export class CouponRepository extends Repository<Coupon> {
         if (from_amount && to_amount) {
             query.andWhere('coupon.discount_amount >= :from_amount AND coupon.discount_amount <= :to_amount', { from_amount, to_amount });
         }
+        
+        // Add ORDER BY clause to sort by coupon_id in ascending order
+        query.orderBy('coupon.coupon_id', 'ASC');
 
         const coupons = await query.getMany();
         return coupons;

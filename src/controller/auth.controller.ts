@@ -12,7 +12,7 @@ export class AuthController {
     ) {}
     
     @Post('/signup')
-    signup(@Body() signupDto: SignupDto): Promise<void> {
+    signup(@Body() signupDto: SignupDto): Promise<{ accessToken: string }> {
         console.log("signupDto", signupDto);
         return this.authService.signup(signupDto);
     }

@@ -51,6 +51,9 @@ export class FeedbackRepository extends Repository<Feedback> {
             query.andWhere('feedback.user = :user', { user: user.user_id });
         }
 
+        // Add ORDER BY clause to sort by feedback_id in ascending order
+        query.orderBy('feedback.feedback_id', 'ASC');
+
         const feedbacks = await query.getMany();
         return feedbacks;
     }

@@ -9,14 +9,14 @@ import { User } from '../model/user.entity';
 
 @Injectable()
 export class AuthService {
-    
+
     constructor(
         @InjectRepository(AuthRepository)
         private authRepository: AuthRepository,
         private jwtService: JwtService
-    ) {}
+    ) { }
 
-    async signup(signupDto: SignupDto): Promise<void> {
+    async signup(signupDto: SignupDto): Promise<{ accessToken: string }> {
 
         const { user_name, email, password, user_type, paid_status } = signupDto;
         const user_email = await this.authRepository.findOne({ where: { email } });
@@ -39,14 +39,21 @@ export class AuthService {
             }
         }
 
+        const user = await this.authRepository.signin({ email: signupDto.email, password: signupDto.password, user_id: 0 });
 
-        return null //this.authRepository.signup(signupDto);
+        if (!user) {
+            throw new UnauthorizedException('Invalid Credentials');
+        }
+
+        const payload: JwtPayload = { user_id: user.user_id };
+        const accessToken = await this.jwtService.sign(payload);
+        return { accessToken };
     }
 
-    async signin(signInDto: SigninDto): Promise<{ accessToken:string }> {
+    async signin(signInDto: SigninDto): Promise<{ accessToken: string }> {
         const user = await this.authRepository.signin(signInDto);
-        
-        if(!user) {
+
+        if (!user) {
             throw new UnauthorizedException('Invalid Credentials');
         }
 

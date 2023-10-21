@@ -46,6 +46,9 @@ export class PlanRepository extends Repository<Plan> {
         //     query.andWhere('coupon.discount_amount >= :from_amount AND coupon.discount_amount <= :to_amount', { from_amount, to_amount });
         // }
 
+        // Add ORDER BY clause to sort by plan_id in ascending order
+        query.orderBy('plan.plan_id', 'ASC');
+
         const plans = await query.getMany();
         return plans;
     }

@@ -89,6 +89,9 @@ export class ProfileRepository extends Repository<Profile> {
             query.andWhere('profile.height >= :from_height AND profile.height <= :to_height', { from_height, to_height });
         }
 
+        // Add ORDER BY clause to sort by profile_id in ascending order
+        query.orderBy('profile.profile_id', 'ASC');
+
         const profiles = await query.getMany();
         return profiles;
     }
