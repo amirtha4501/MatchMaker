@@ -12,13 +12,13 @@ export class AuthController {
     ) {}
     
     @Post('/signup')
-    signup(@Body() signupDto: SignupDto): Promise<{ accessToken: string }> {
+    signup(@Body() signupDto: SignupDto): Promise<{ accessToken: string, user_id: number }> {
         console.log("signupDto", signupDto);
         return this.authService.signup(signupDto);
     }
 
     @Post('/signin')
-    signin(@Body(ValidationPipe) signinDto: SigninDto): Promise<{ accessToken: string }> {
+    signin(@Body(ValidationPipe) signinDto: SigninDto): Promise<{ accessToken: string, user_id: number }> {
         return this.authService.signin(signinDto);
     }
 

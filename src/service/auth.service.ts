@@ -16,7 +16,7 @@ export class AuthService {
         private jwtService: JwtService
     ) { }
 
-    async signup(signupDto: SignupDto): Promise<{ accessToken: string }> {
+    async signup(signupDto: SignupDto): Promise<{ accessToken: string, user_id: number }> {
 
         const { user_name, email, password, user_type, paid_status } = signupDto;
         const user_email = await this.authRepository.findOne({ where: { email } });
@@ -47,10 +47,10 @@ export class AuthService {
 
         const payload: JwtPayload = { user_id: user.user_id };
         const accessToken = await this.jwtService.sign(payload);
-        return { accessToken };
+        return { accessToken, user_id: user.user_id };
     }
 
-    async signin(signInDto: SigninDto): Promise<{ accessToken: string }> {
+    async signin(signInDto: SigninDto): Promise<{ accessToken: string, user_id: number }> {
         const user = await this.authRepository.signin(signInDto);
 
         if (!user) {
@@ -59,7 +59,7 @@ export class AuthService {
 
         const payload: JwtPayload = { user_id: user.user_id };
         const accessToken = await this.jwtService.sign(payload);
-        return { accessToken };
+        return { accessToken, user_id: user.user_id };
     }
 
     async getUsers(): Promise<User[]> {
